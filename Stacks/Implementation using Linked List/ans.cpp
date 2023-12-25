@@ -1,129 +1,107 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
-class Node
-{
-public:
-    int data;
-    Node *next;
+class Node{
+     
+     public:
+     int data;
+     Node* next;
 
-    Node(int data)
-    {
-        this->data = data;
-        this->next = NULL;
-    }
+     Node(int data){
+        this->data=data;
+        this->next=NULL;
+     }
 };
 
-class Stack
-{
-    Node *top;
+class Stack{
+    Node* top;
+    
+    public:
 
-public:
-    Stack()
-    {
-        top = NULL;
+    Stack(){
+        top=NULL;
     }
 
-    void push(int data)
-    {
+    void push(int data){
 
-        Node *temp = new Node(data);
+        Node* temp = new Node(data);
 
-        if (!temp)
-        {
-            cout << "stack overflow" << endl;
-            exit(1);
+        if(!temp){
+            cout<<"stack overflow"<<endl;
+            return;
         }
 
-        temp->data = data;
-        temp->next = top;
-        top = temp;
+        temp->data=data;
+        temp->next=top;
+        top=temp;
     }
 
-    bool isEmpty()
-    {
+    bool isEmpty(){
 
         return top == NULL;
     }
 
-    int peek()
-    {
-        if (!isEmpty())
+    int peek(){
+
+        if(!isEmpty()){
             return top->data;
-        else
-            exit(1);
+        }
+        return -1;
     }
 
-    void pop()
-    {
-        Node *temp;
+    void pop(){
+        Node *temp=top;
 
-        if (top == NULL)
-        {
-            cout << "stack underflow" << endl;
+        if(top == NULL){
+            cout<<"stack underflow"<<endl;
+            return;
         }
 
-        else
-        {
-            temp = top;
-
-            top = top->next;
-
-            free(temp);
-        }
+        top=top->next;
+        free(temp);
     }
 
-    void display()
-    {
+    void print(){
 
-        Node *temp;
+        Node* temp;
 
-        if (top == NULL)
-        {
-            cout << "stack underflow";
-            exit(1);
+        if(top == NULL){
+            cout<<"stack underflow"<<endl;
+            return;
         }
-        else
-        {
-            temp = top;
 
-            while (temp != NULL)
-            {
-                cout << temp->data;
+        temp=top;
 
-                temp = temp->next;
-                if (temp != NULL)
-                    cout << " -> ";
+        while(temp != NULL){
+            cout<<temp->data;
+
+            temp=temp->next;
+
+            if(temp != NULL){
+                cout<<" -> ";
             }
         }
     }
+    
 };
 
-int main()
-{
+int main(){
+
     Stack s;
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    s.push(4);
 
-    // Push the elements of stack
-    s.push(11);
-    s.push(22);
-    s.push(33);
-    s.push(44);
+    cout<<s.peek()<<endl;
 
-    // Display stack elements
-    s.display();
-
-    // Print top element of stack
-    cout << "\nTop element is " << s.peek() << endl;
-
-    // Delete top elements of stack
-    s.pop();
     s.pop();
 
-    // Display stack elements
-    s.display();
+    cout<<s.peek()<<endl;
 
-    // Print top element of stack
-    cout << "\nTop element is " << s.peek() << endl;
+    s.print();
+
+
 
     return 0;
 }
